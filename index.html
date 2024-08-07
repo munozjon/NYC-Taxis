@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <title>NYC Ubers and Lyfts Analysis</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no">
+    <link href="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.css" rel="stylesheet">
+    <script src="https://api.mapbox.com/mapbox-gl-js/v3.4.0/mapbox-gl.js"></script>
+    <script src="https://d3js.org/d3.v7.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js"></script>
+    <!-- Our CSS -->
+    <link rel="stylesheet" type="text/css" href="static/css/style.css">
+</head>
+
+<body>
+    <!-- The div that holds our plots -->
+    <div id="graphs">
+        <div class="row">
+            <div class="col-md-12">
+                <div id="pie"></div>
+            </div>
+            <br>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="box"></div>
+            </div>
+            <br>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="bar"></div>
+            </div>
+        </div>
+    </div>
+    <!-- Link to Mapbox API -->
+    <script
+        src="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.3.1/mapbox-gl-directions.js"></script>
+    <link rel="stylesheet"
+        href="https://api.mapbox.com/mapbox-gl-js/plugins/mapbox-gl-directions/v4.3.1/mapbox-gl-directions.css"
+        type="text/css">
+
+    <!-- Our JavaScript file -->
+    <script type="text/javascript" src="static/js/logic.js"></script>
+</body>
+
+</html>
