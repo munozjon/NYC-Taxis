@@ -14,24 +14,55 @@
 </head>
 
 <body>
-    <!-- The div that holds our plots -->
+    <div class="main-container">
+        <!-- The div that holds the sidebar -->
+            <div id="sidebar">
+            <div class="card bg-light">
+                <h2>Ubers in NYC</h2>
+                <p>Dataset from 2023</p>
+                <div id="graphs">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="heatmap"></div>
+                        </div>
+                        <br>
+                        <br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="histogram"></div>
+                        </div>
+                        <br>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div id="bar"></div>
+                        </div>
+                    </div>
+                </div>            
+            </div>
+        </div>
+        <!-- The div that holds the map -->
+     <div id="map"></div>
+    </div>
+
     <div id="graphs">
         <div class="row">
             <div class="col-md-12">
-                <div id="pie"></div>
+                <!-- <div id="heatmap"></div> -->
             </div>
             <br>
             <br>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="box"></div>
+                <!-- <div id="histogram"></div> -->
             </div>
             <br>
         </div>
         <div class="row">
             <div class="col-md-12">
-                <div id="bar"></div>
+                <!-- <div id="bar"></div> -->
             </div>
         </div>
     </div>
