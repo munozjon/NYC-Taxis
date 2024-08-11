@@ -4,7 +4,7 @@ import pandas as pd
 from flask import Flask, render_template_string, jsonify #, send_file, Response
 from flask_cors import CORS
 
-# Set the backend to 'Agg
+# Set the backend to 'Agg'
 import matplotlib
 matplotlib.use('Agg')
 
@@ -18,55 +18,56 @@ import base64
 
 # Older df, used for testing
 df = pd.read_csv('static/data/uber_nyc_2023_1.csv')
-# df_ints = df.drop(columns=['Unnamed: 0', 'hvfhs_license_num', 'request_datetime', 'date', 'PUBorough', 'PUZone', 'DOBorough', 'DOZone'])
 
 # Actual DFs to use
 # df_1 = pd.read_csv('../data/uber_nyc_2023_1.csv')
 # df_2 = pd.read_csv('../data/uber_nyc_2023_2.csv')
 # df_3 = pd.read_csv('../data/uber_nyc_2023_3.csv')
-# new_df = pd.concat([df_1, df_2, df_3])
-# new_df_ints = new_df.drop(columns=['hvfhs_license_num', 'request_datetime', 'date', 'PUBorough', 'PUZone', 'DOBorough', 'DOZone'])
+# df = pd.concat([df_1, df_2, df_3])
+# df_ints = df.drop(columns=['hvfhs_license_num', 'request_datetime', 'date', 'PUBorough', 'PUZone', 'DOBorough', 'DOZone'])
+
+# FUNCTIONS FOR VISUALIZATIONS
+
+# Get the coordinates of taxi zones
+def get_coords():
+    # Import coordinates df
+    df_taxi_zones = pd.read_csv('data/taxi_zone_lookup_coordinates.csv')
+
+    # Merge df with coordinates_df on DOLocationID
+    df_merged_DO = pd.merge(df, df_taxi_zones, left_on='DOLocationID', right_on='LocationID', suffixes=('', '_DO'))
+
+    # Merge the resulting dataframe with coordinates_df again on PULocationID
+    df_merged_both = pd.merge(df_merged_DO, df_taxi_zones, left_on='PULocationID',\
+                              right_on='LocationID', suffixes=('_DO', '_PU'))\
+                            .drop(columns=['LocationID_DO', 'LocationID_PU', 'service_zone_DO',\
+                                           'service_zone_PU', 'Borough_PU', 'Zone_PU','Borough_DO', 'Zone_DO'])
+    
+    return df_merged_both
 
 
+# Get the zones for dropoff or pickup, binned by frequency
+def get_zones(df, col):
+    # Reduce the columns
+    df = df[['DOLocationID', 'PULocationID']]
 
-# TESTING
-# def get_coords():
-    # # Import coordinates DataFrame
-    # coordinates_df = pd.read_csv('static/data/taxi_zone_lookup_coordinates.csv')
+    # Set variable for the column not being called - used for dropping
+    for i in df.columns:
+        if col != i:
+            other_col = i
 
+    # Set 5 bins based on frequency
+    df[col[:2] + "_bins"] = pd.cut(df[col], bins = 5, precision = 0,  labels=['Infrequent', 'Frequent',\
+                                                                             'Regular', 'Common', 'Very Common'])
 
-#     # Merge df with coordinates_df on DOLocationID
-#     df_merged_DO = pd.merge(df, coordinates_df, left_on='DOLocationID', right_on='LocationID', suffixes=('', '_DO'))
+    # Reduce to unique taxi zone ID's
+    df = df.drop_duplicates(subset=[col]).drop(columns=[other_col])
 
-#     # Merge the resulting dataframe with coordinates_df again on PULocationID
-#     df_merged_both = pd.merge(df_merged_DO, coordinates_df, left_on='PULocationID', right_on='LocationID', suffixes=('_DO', '_PU'))
-
-#     # Drop the additional 'LocationID' columns from the merges
-#     df_merged_both = df_merged_both.drop(columns=['LocationID_DO', 'LocationID_PU', 'service_zone_DO', 'service_zone_PU', 
-#                                                 'Borough_PU', 'Zone_PU','Borough_DO', 'Zone_DO'
-#                                                 ])
-
-#     # Bin the DOLocationID's into 10 columns based on frequency
-#     DO_qc = pd.qcut(df_merged_both['DOLocationID'].value_counts(), q=10, precision=0)
-#     df_bins_DO = pd.merge(df_merged_both, DO_qc, left_on='DOLocationID', right_index=True)
-#     df_bins_DO = df_bins_DO.rename(columns={'count': 'DO_bins'})
-
-#     # Bin the PULocationID's into 10 columns based on frequency
-#     PU_qc = pd.qcut(df_merged_both['PULocationID'].value_counts(), q=10, precision=0)
-#     df_coord_bins_final = pd.merge(df_bins_DO, PU_qc, left_on='PULocationID', right_index=True)
-#     df_coord_bins_final = df_coord_bins_final.rename(columns={'count': 'PU_bins'})
-
-#     df_coord_bins_final = df_coord_bins_final[['DOLocationID', 'PULocationID', 'DO_bins', 'PU_bins']]
-
-#     df_coord_bins_final = df_coord_bins_final.astype({'DO_bins': 'object', 'PU_bins': 'object'})
-
-#     return df_coord_bins_final.to_json(orient="records")
-
+    # Return JSON
+    return df.to_json(orient='records')
 
 
 # Create heatmap with Seaborn
 def create_heatmap():
-
     # Reduce to only int or float columns
     df_ints = df.drop(columns=['Unnamed: 0', 'hvfhs_license_num', 'request_datetime', 'date', 'PUBorough', 'PUZone', 'DOBorough', 'DOZone'])
 
@@ -135,11 +136,15 @@ def matplotlib_plot():
     html = f'<img src="data:image/png;base64,{plot_url}" alt="Matplotlib Plot">'
     return render_template_string(html)
 
+# Set endpoint for JSON of dropoff zone frequencies
+@app.route('/dropoff_zones.json')
+def get_dropoffs(): 
+    return jsonify(get_zones(df, 'DOLocationID'))
 
-# # Set endpoint for JSON:
-# @app.route('/coordinates.json')
-# def get_coordinates(): 
-#     return jsonify(get_coords())
+# Set endpoint for JSON of pickup zone frequencies
+@app.route('/pickup_zones.json')
+def get_pickups(): 
+    return jsonify(get_zones(df, 'PULocationID'))
 
 
 if __name__ == '__main__':
