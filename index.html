@@ -41,12 +41,42 @@
                             <div id="bar"></div>
                         </div>
                     </div>
-                </div>            
+                </div>  
+                        
             </div>
         </div>
         <!-- The div that holds the map -->
      <div id="map"></div>
     </div>
+
+    <!-- ML div -->
+    <div class="row">
+        <div class="card card-primary">
+            <h4> Linear Regression vs Random Forests Model with Feature Selection and Hypertuning</h4>
+            <p> Sample size: 167,049<br/>
+                Features: drop off location ID, pick up location ID, trip miles, trip time, month, hour, day of the week <br/>
+                Target: total fare cost
+                <br/>
+            </p>
+            <h4> Linear Regression Model Performance </h4>
+            <p>
+                Accuracy score: 0.81 <br/>
+                Mean absolute error: $6.51 <br/>
+                Mean squared error: $117.23 <br/>
+            </p>
+            <h4> Random Forests Model Performance </h4>
+            <p>
+                Feature selection: 21 features including categorical values to 7 features <br/>
+                Hypertuning: <br/>
+                Accuracy: 0.85 <br/>
+                Mean absolute error: $5.25 <br/>
+                Mean squared error: $91.66 <br/>
+            </p>
+            <script src="ramdomForests.js"></script>
+                <!-- <select id="selDataset" onchange="optionChanged(this.value)"></select> -->
+        <br>
+    </div>
+    <!-- ML div end -->  
 
     <div id="graphs">
         <div class="row">
@@ -67,7 +97,7 @@
                 <!-- <div id="bar"></div> -->
             </div>
         </div>
-    </div>
+    </div>   
     <!-- Leaflet JS -->
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
     integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
