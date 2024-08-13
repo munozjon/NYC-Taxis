@@ -134,6 +134,76 @@
                 <!-- <select id="selDataset" onchange="optionChanged(this.value)"></select> -->
         <div id = "nn_tripmiles"></div>
         <div id = "nn_importance"></div>
+
+    <!-- Regression Model div -->
+    <div class="row">
+        <div class="card card-primary">
+            <h2>Linear Regression Model to Predict Base Passenger Fare</h2>
+            <p> Sample size: 334,071<br/>
+                Features: <br/>
+                <ul> <li>Trip Miles</li> <li>Trip Time</li> <li>Tolls</li> <li>Congestion Surcharge</li> </ul>
+                Target: Base Passenger Fare<br/>
+            </p>
+            <h3>Model Performance</h3>
+            <p>
+                Mean Squared Error: 113.67 <br/>
+                Mean Absolute Error: 5.52 <br/>
+                R² Score: 0.79 <br/>
+            </p>
+            <h3>Model Coefficients</h3>
+            <ul>
+                <li>Trip Miles: 2.1863</li>
+                <li>Trip Time: 0.0076</li>
+                <li>Tolls: 0.3338</li>
+                <li>Congestion Surcharge: 1.6331</li>
+            </ul>
+        </div>
+        <div class="row">
+            <div class="col-md-12">
+                <div id="actual_vs_predicted"></div>
+                <img src="static/images/actual_vs_predicted_base_fare.png" alt="Actual vs Predicted Base Fare" width="100%">
+            </div>
+        </div>
+    </div>
+
+
+        <div id="content">
+            <div class="card bg-light">
+                <h2>Driver Pay Prediction</h2>
+                <h3>Using Linear Regression</h3>
+                <div id="results">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <h4>Model Evaluation</h4>
+                            <p>
+                                <strong>Mean Squared Error:</strong> 16.26 <br/>
+                                <strong>Mean Absolute Error:</strong> 2.28 <br/>
+                                <strong>R<sup>2</sup> Score:</strong> 0.95 <br/>
+                                <strong>Sample Size:</strong> 334,071
+                            </p>
+                            <h4>Feature Coefficients</h4>
+                            <ul>
+                                <li>Base Passenger Fare: 0.389</li>
+                                <li>Trip Miles: 0.709</li>
+                                <li>Trip Time: 0.006</li>
+                                <li>Tolls: 0.004</li>
+                                <li>Congestion Surcharge: -0.078</li>
+                                <li>Tips: -0.003</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>  
+            </div>
+        </div>
+
+        <!-- Graph Section -->
+        <div class="row">
+            <div class="card card-primary">
+                <h2>Actual vs Predicted Driver Pay</h2>
+                <img src="static/images/actual_vs_predicted_driver_pay.png" alt="Actual vs Predicted Driver Pay" style="width:100%;">
+            </div>
+        </div>
+
         
     </div>
     <!-- ML div end -->  
