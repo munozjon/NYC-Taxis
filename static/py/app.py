@@ -80,7 +80,7 @@ def create_heatmap():
     sns.set_style(style="darkgrid")
     
     # Initialize subplot for this plot
-    fig, ax = plt.subplots(figsize=(9,9))
+    fig, ax = plt.subplots(figsize=(12,15))
 
     # Create the heatmap
     sns.heatmap(round(numeric_df.corr(),2), annot=True, cmap='PuBuGn', ax=ax).set_title('Related Features')

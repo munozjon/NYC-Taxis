@@ -5,37 +5,38 @@ body {
 }
 
 img {
-    max-width: 100%;
-    max-height: 100%
-}
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 100%;
+  }
 
 .main-container {
     display: flex;
-    height: 75vh; 
+    height: 100vh; 
     overflow: hidden; 
 }
 
 #sidebar {
-    width: 50%;
+    width: 60%;
     background-color: #F8F9FA;
     padding: 2px;
     box-sizing: border-box;
     overflow-y: auto; 
-    border-right: 1px solid #dee2e6;
+    border-right: 1px solid #F8F9FA;
 }
 
 #map {
     flex: 1; /* Take up remaining space */
-    overflow-y: auto; /* Enable scrolling if content exceeds map height */
     padding: 20px;
     box-sizing: border-box;
 }
 
 #graphs {
-    background-color: #fff;
+    background-color: #F8F9FA;
     padding: 20px;
     box-sizing: border-box;
-    border-top: 1px solid #dee2e6;
+    border-top: 1px solid #F8F9FA;
     margin-top: 20px; /* Add space between map and graphs */
     overflow-y: auto; /* Enable scrolling if content exceeds graphs height */
 }
@@ -43,7 +44,7 @@ img {
 .graph-section {
     margin-bottom: 20px; 
     padding-bottom: 20px; 
-    border-bottom: 1px solid #ced4da;
+    border-bottom: 1px solid #F8F9FA;
 }
 
 /* Legend styling */

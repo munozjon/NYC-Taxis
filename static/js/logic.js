@@ -1,10 +1,10 @@
 // Bins with color coordination for legend
 const legendColors = {
-    "Infrequent": "#ffee73",
-    "Frequent": "#a1dab4",
-    "Regular": "#41b6c4",
-    "Common": "#2c7fb8",
-    "Very Common": "#253494"
+    "Infrequent": "#ffffd4",
+    "Frequent": "#fed98e",
+    "Regular": "#fe9929",
+    "Common": "#d95f0e",
+    "Very Common": "#993404"
 };
 
 // Initialize the map
@@ -28,7 +28,10 @@ function createMap() {
 
         // Add the base zones to the layer group
         L.geoJson(zoneData, {
-            color:"black"
+            color:"black",
+            onEachFeature: function (feature,layer) {
+                layer.bindPopup(`<h3>${feature.properties.zone}</h3> <hr> <h5>${feature.properties.borough}</h5>`);
+            },
         }).addTo(taxiZones),
 
         // Read the endpoint for binned pickup and dropoff zones and add to their layer groups
@@ -50,16 +53,16 @@ function createMap() {
   
     // Create an overlayMaps object to hold the layer groups
     let overlayMaps = {
-        "Taxi Zones": taxiZones,
         "Dropoffs": dropoffs,
-        "Pickups": pickups
+        "Pickups": pickups,
+        "Taxi Zones": taxiZones
     };
 
     // Create the map object with options
     let myMap = L.map("map", {
       center: [40.78,-73.96],
-      zoom: 11,
-      layers: [standard, taxiZones]
+      zoom: 10.5,
+      layers: [standard, dropoffs]
     });
   
     // Add layer control to the map
@@ -69,7 +72,7 @@ function createMap() {
 
 
     // // Create the legend
-    let legend = L.control({position: "bottomright"});
+    let legend = L.control({position: "topleft"});
     // Function to add labels to the legend
     legend.onAdd = function (map) {
         var div = L.DomUtil.create('div', 'info legend');
@@ -215,8 +218,8 @@ function init() {
             .innerHTML += data;
         }); 
          
-        const rfUrl = "http://127.0.0.1:5000/nn_tripmiles";
-    fetch(rfUrl)
+    const nnTrip = "http://127.0.0.1:5000/nn_tripmiles";
+    fetch(nnTrip)
         .then(function(response) {
             return response.text();
         }).then(function(data) {
@@ -224,8 +227,8 @@ function init() {
             .innerHTML += data;
         });     
 
-    const rfUrl = "http://127.0.0.1:5000/nn_importance";
-    fetch(rfUrl)
+    const nnImportance = "http://127.0.0.1:5000/nn_importance";
+    fetch(nnImportance)
         .then(function(response) {
             return response.text();
         }).then(function(data) {
