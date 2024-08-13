@@ -57,18 +57,18 @@ random forests mean absolute error: #
 random forests mean squared error: 
 
 ### Machine Learning Model 3. Linear Regression vs Neural Networks
-sample size = 87,825
+sample size = 1,249,400
 features = ['drop off location id', 'pick up location id', 'trip miles', 'trip time', 'congestion_surcharge', 'tips', 'month','day','hour', 'minute']
 target = 'base_passenger_fare'
-linear regression score: 0.75
-linear regression mean absolute error: $6.39
-linear regression mean squared error: $119.83
+linear regression score: 0.767
+linear regression mean absolute error: $6.34
+linear regression mean squared error: $113.45
 neural network trip mileage sensitivity analysis
 all distance trips
-neural network mean absolute error: $3.51
-neural network root mean squared error: $5.52
+neural network mean absolute error: $3.54
+neural network root mean squared error: $5.65
 trips less than 20 miles long
-neural network mean absolute error: $3.29
-neural network root mean squared error: $4.96
+neural network mean absolute error: $3.31
+neural network root mean squared error: $5.15
 
 ## Conclusion
