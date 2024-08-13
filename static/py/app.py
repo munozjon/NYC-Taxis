@@ -17,7 +17,7 @@ import numpy as np
 import base64
 
 # Older df, used for testing
-df = pd.read_csv('C:/Users/cmdur/OneDrive/Desktop/analytics_classwork/NYC-Taxis/static/data/uber_nyc_2023_1.csv')
+df = pd.read_csv('static/data/uber_nyc_2023_1.csv')
 
 
 # Actual DFs to use
