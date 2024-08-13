@@ -95,6 +95,45 @@
             <!-- <script src="ramdomForests.js"></script> -->
                 <!-- <select id="selDataset" onchange="optionChanged(this.value)"></select> -->
         <div id = "rf_importance"></div>
+
+            <h3> Linear Regression vs Neural Network Model</h3>
+            <p> Sample size: 87,825<br/>
+                Features: <br/>
+                <ul> <li>drop off location ID</li> <li>pick up location ID</li> <li>trip miles</li><li>trip time</li><li>congestion surcharge</li><li>tips</li><li>driver pay</li><li>month</li><li>day</li><li>hour</li><li>minute</li> </ul>
+                Target: base passenger fare<br/>
+            </p>
+            <h4> Linear Regression Model Performance </h4>
+            <p>
+                Accuracy score: 0.76 <br/>
+                Mean absolute error: $6.39 <br/>
+                Mean squared error: $119.83 <br/>
+            </p>
+            <h4> Neural Network Model Performance </h4>
+            <p>
+                Feature selection: DOLocationID, PULocationID, trip miles, trip time, driver_pay, month, day, hour<br/>
+                Keras model with 3 layers: <br/>
+                First hidden layer: units=30, activation="relu" <br/>
+                Second hidden layer: units=15, activation="relu" <br/>
+                Third hidden layer: units=10, activation="relu" <br/>
+                Output layer: units=1 <br/>
+            <p>
+                Epochs = 50 <br/>
+            <p>
+                Model NN <br/>
+                Mean absolute error mae: $3.53 <br/>
+                Mean square error rmse: 30.47 <br/>
+            <p>
+                Model NN20 (Trip miles lower than 20 miles) <br/>
+                Mean absolute error mae: $3.24 <br/>
+                Mean square error rmse: 23.91 <br/>
+            </p>
+        </div>
+        <div class="row"></div>
+            <!-- <script src="ramdomForests.js"></script> -->
+                <!-- <select id="selDataset" onchange="optionChanged(this.value)"></select> -->
+        <div id = "nn_tripmiles"></div>
+        <div id = "nn_importance"></div>
+        
     </div>
     <!-- ML div end -->  
 

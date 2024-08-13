@@ -213,8 +213,26 @@ function init() {
         }).then(function(data) {
             document.getElementById("rf_importance")
             .innerHTML += data;
-        });  
-    
+        }); 
+         
+        const rfUrl = "http://127.0.0.1:5000/nn_tripmiles";
+    fetch(rfUrl)
+        .then(function(response) {
+            return response.text();
+        }).then(function(data) {
+            document.getElementById("nn_tripmiles")
+            .innerHTML += data;
+        });     
+
+    const rfUrl = "http://127.0.0.1:5000/nn_importance";
+    fetch(rfUrl)
+        .then(function(response) {
+            return response.text();
+        }).then(function(data) {
+            document.getElementById("nn_importance")
+            .innerHTML += data;
+        });
+
     };
 
 init();

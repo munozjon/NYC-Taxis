@@ -210,6 +210,37 @@ def create_rf_importance_plot():
     buf.seek(0)
     return base64.b64encode(buf.getvalue()).decode('utf-8')
 
+# Trip_miles boxplot
+def create_nn_tripmiles_boxplot():
+    df_nn_tripmiles_boxplot = pd.read_csv('NYC-Taxis/static/data/trip_miles_data.csv')
+    plt.figure(figsize=(10, 6))
+    plt.boxplot(df_nn_tripmiles_boxplot['trip_miles'])
+    plt.title('Boxplot of Trip Miles')
+    plt.xlabel('Trip Miles')
+    plt.ylabel('Value')
+
+    buf = BytesIO()
+    plt.savefig(buf, format='png')
+    buf.seek(0)
+    return base64.b64encode(buf.getvalue()).decode('utf-8')
+
+# Neural Network Matplotlib plot
+def create_nn_importance_plot():
+    df_nn_feature_importance = pd.read_csv('NYC-Taxis/static/data/nn_features.csv')
+    df_nn_predictions = pd.read_csv('NYC-Taxis/static/data/nn_predictions.csv').iloc[0:60,:]
+    fig, (ax1,ax2) = plt.subplots(2,figsize=(20,10))
+    ax1.bar(df_nn_feature_importance['Feature'], df_nn_feature_importance['Importance'].astype('float'))
+    ax1.set(xlabel='Features', ylabel='Permutation Feature Importance', title='Feature Selection')#, fontsize='large')#, fontweight='bold')
+    ax2.scatter(df_nn_predictions.index,df_nn_predictions['True Values'],marker='s')
+    ax2.scatter(df_nn_predictions.index,df_nn_predictions['Predicted NN Values'],marker='o')
+    ax2.scatter(df_nn_predictions.index,df_nn_predictions['Predicted NN20 Values'],marker='D')
+    ax2.set(xlabel='Testing Samples', ylabel='Predictions ($)', title='Neural Network Prediction n=60')
+    ax2.legend(['True Values', 'Predicted NN Values','Predicted NN20 Values'], fontsize="15", loc ="upper left")
+
+    buf = BytesIO()
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return base64.b64encode(buf.getvalue()).decode('utf-8')
 
 # Establish Flask connection
 app = Flask(__name__)
@@ -260,6 +291,20 @@ def pairplot():
 def rf_importance_plot():
     plot_url = create_rf_importance_plot()
     html = f'<img src="data:image/png;base64,{plot_url}" alt="Matplotlib Plot Random Forests Feature Importance">'
+    return render_template_string(html)
+
+# Endpoint for Boxplot trip_miles
+@app.route('/nn_tripmiles')
+def nn_tripmiles_boxplot():
+    plot_url = create_nn_tripmiles_boxplot()
+    html = f'<img src="data:image/png;base64,{plot_url}" alt="Matplotlib BoxPlot Trip Miles">'
+    return render_template_string(html)
+
+# Endpoint for Matplotlib plot Neural Network
+@app.route('/nn_importance')
+def nn_importance_plot():
+    plot_url = create_nn_importance_plot()
+    html = f'<img src="data:image/png;base64,{plot_url}" alt="Matplotlib Plot Neural Network Feature Importance">'
     return render_template_string(html)
 
 # Set endpoint for JSON of dropoff zone frequencies
