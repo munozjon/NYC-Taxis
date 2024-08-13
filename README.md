@@ -72,19 +72,19 @@ Step 3. Use aggregate of outcomes to make a decision based on input variables (b
 * random forests mean squared error: $91.66
 
 ### Machine Learning Model 2. Linear Regression vs Neural Networks
-* sample size = 87,825
+* sample size = 
 * features = ['drop off location id', 'pick up location id', 'trip miles', 'trip time', 'congestion_surcharge', 'tips', 'month','day','hour', 'minute']
 * target = 'base_passenger_fare'
 * linear regression score: 0.75
 * linear regression mean absolute error: $6.39
 * linear regression mean squared error: $119.83
 * neural network trip mileage sensitivity analysis
-all distance trips
-* neural network mean absolute error: $3.51
-* neural network root mean squared error: $5.52
-trips less than 20 miles long
-* neural network mean absolute error: $3.29
-* neural network root mean squared error: $4.96
+* all distance trips
+  * neural network mean absolute error: $3.51
+  * neural network root mean squared error: $5.52
+* trips less than 20 miles long
+  * neural network mean absolute error: $3.29
+  * neural network root mean squared error: $4.96
 
 ### Machine Learning Model 3. Linear Regression 
 * sample size = 337,579
