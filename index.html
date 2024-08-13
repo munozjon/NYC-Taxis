@@ -52,11 +52,11 @@
     <!-- ML div -->
     <div class="row">
         <div class="card card-primary">
-            <h4> Linear Regression vs Random Forests Model with Feature Selection and Hypertuning</h4>
+            <h3> Linear Regression vs Random Forests Model with Feature Selection and Hypertuning</h3>
             <p> Sample size: 167,049<br/>
-                Features: drop off location ID, pick up location ID, trip miles, trip time, month, hour, day of the week <br/>
-                Target: total fare cost
-                <br/>
+                Features: <br/>
+                <ul> <li>drop off location ID</li> <li>pick up location ID</li> <li>trip miles</li><li>trip time</li><li>month</li><li>hour</li><li>day of the week</li> </ul>
+                Target: total fare cost<br/>
             </p>
             <h4> Linear Regression Model Performance </h4>
             <p>
@@ -66,15 +66,20 @@
             </p>
             <h4> Random Forests Model Performance </h4>
             <p>
-                Feature selection: 21 features including categorical values to 7 features <br/>
+                Feature selection: features with best importance were selected out of 21 features evaluated<br/>
                 Hypertuning: <br/>
+                <ul> <li>Number of estimators: [50, 100, 200]</li> <li>Max Depth: [None, 10, 20, 30]</li> <li>Min Samples Split: [2, 5, 10]</li> <li>Min Samples Leaf: [1, 2, 4]</li> </ul>
+                Best Parameters:
+                <ul> <li>Number of estimators: [50]</li> <li>Max Depth: [30]</li> <li>Min Samples Split: [2]</li> <li>Min Samples Leaf: [4]</li> </ul>
                 Accuracy: 0.85 <br/>
                 Mean absolute error: $5.25 <br/>
                 Mean squared error: $91.66 <br/>
             </p>
-            <script src="ramdomForests.js"></script>
+        </div>
+        <div class="row"></div>
+            <!-- <script src="ramdomForests.js"></script> -->
                 <!-- <select id="selDataset" onchange="optionChanged(this.value)"></select> -->
-        <br>
+        <div id = "rf_importance"></div>
     </div>
     <!-- ML div end -->  
 

@@ -179,7 +179,15 @@ function init() {
             document.getElementById("bar")
             .innerHTML += data;
         });    
-    
+
+    const rfUrl = "http://127.0.0.1:5000/rf_importance";
+    fetch(rfUrl)
+        .then(function(response) {
+            return response.text();
+        }).then(function(data) {
+            document.getElementById("rf_importance")
+            .innerHTML += data;
+        });  
     };
 
 init();

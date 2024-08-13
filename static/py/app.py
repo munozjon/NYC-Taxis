@@ -17,7 +17,8 @@ import numpy as np
 import base64
 
 # Older df, used for testing
-df = pd.read_csv('static/data/uber_nyc_2023_1.csv')
+df = pd.read_csv('C:/Users/cmdur/OneDrive/Desktop/analytics_classwork/NYC-Taxis/static/data/uber_nyc_2023_1.csv')
+
 
 # Actual DFs to use
 # df_1 = pd.read_csv('../data/uber_nyc_2023_1.csv')
@@ -110,7 +111,19 @@ def create_matplotlib_plot():
     buf.seek(0)
     return base64.b64encode(buf.getvalue()).decode('utf-8')
 
-
+# Random Forests Matplotlib plot
+def create_rf_importance_plot():
+    df_rf_feature_importance = pd.read_csv('C:/Users/cmdur/OneDrive/Desktop/analytics_classwork/NYC-Taxis/static/data/rf_features.csv')
+    df_rf_predictions = pd.read_csv('C:/Users/cmdur/OneDrive/Desktop/analytics_classwork/NYC-Taxis/static/data/rf_predictions.csv')
+    fig, (ax1,ax2) = plt.subplots(2,figsize=(20,10))
+    ax1.bar(df_rf_feature_importance['Feature'], df_rf_feature_importance['Importance (%)'].astype('float'))
+    ax1.set(xlabel='Features', ylabel='Importance (%)', title='Feature Selection')
+  #  ax2.plot(df_rf_predictions['True Predictions'],df_rf_feature_importance['Random Forest Predictions Feature Selection'])
+    
+    buf = BytesIO()
+    fig.savefig(buf, format='png')
+    buf.seek(0)
+    return base64.b64encode(buf.getvalue()).decode('utf-8')
 
 
 # Establish Flask connection
@@ -134,6 +147,13 @@ def histogram():
 def matplotlib_plot():
     plot_url = create_matplotlib_plot()
     html = f'<img src="data:image/png;base64,{plot_url}" alt="Matplotlib Plot">'
+    return render_template_string(html)
+
+# Endpoint for Matplotlib plot random forests
+@app.route('/rf_importance')
+def rf_importance_plot():
+    plot_url = create_rf_importance_plot()
+    html = f'<img src="data:image/png;base64,{plot_url}" alt="Matplotlib Plot Random Forests Feature Importance">'
     return render_template_string(html)
 
 # Set endpoint for JSON of dropoff zone frequencies
