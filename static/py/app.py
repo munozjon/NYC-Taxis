@@ -17,7 +17,12 @@ import numpy as np
 import base64
 
 # Older df, used for testing
-df = pd.read_csv('NYC-Taxis/static/data/uber_nyc_2023_1.csv')
+df_1 = pd.read_csv('NYC-Taxis/static/data/uber_nyc_2023_1.csv')
+df_2 = pd.read_csv('NYC-Taxis/static/data/uber_nyc_2023_2.csv')
+df_3 = pd.read_csv('NYC-Taxis/static/data/uber_nyc_2023_3.csv')
+df = pd.concat([df_1, df_2, df_3])
+
+
 # Select numeric columns from the DataFrame
 numeric_df = df.select_dtypes(include=[float, int]).drop(columns=['Unnamed: 0'])
 
@@ -25,13 +30,6 @@ numeric_df = df.select_dtypes(include=[float, int]).drop(columns=['Unnamed: 0'])
 features = ['trip_miles', 'trip_time', 'base_passenger_fare', 'tolls', 'sales_tax', 'congestion_surcharge', 'airport_fee', 'tips']
 data = df[features].dropna()
 
-
-
-# Actual DFs to use
-# df_1 = pd.read_csv('../data/uber_nyc_2023_1.csv')
-# df_2 = pd.read_csv('../data/uber_nyc_2023_2.csv')
-# df_3 = pd.read_csv('../data/uber_nyc_2023_3.csv')
-# df = pd.concat([df_1, df_2, df_3])
 
 # FUNCTIONS FOR VISUALIZATIONS
 
