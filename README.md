@@ -12,7 +12,7 @@ We created 3 supervised machine learning models to find if the data would be abl
 ## Process
 
 ### 1. Extract, Transform, Load
-Upon identifying the data as too large to analyze, we sought to reduce the dataset to a manageable, random sample. We utilized Databricks to read the parquet files for each month in 2023, and leveraged PySpark to .....
+Upon identifying the data as too large to analyze, we sought to reduce the dataset to a manageable, random sample. We utilized Databricks, a cloud-based platform, to store and process large amounts of data. The FHV Trip Data was split per month and stored in parquet files. The parquet files were uploaded to Databricks and read using Spark. The combined Spark dataframe was filtered to extract only Uber trips. A representative random sample was used to reduce runtimes and resources needed for data manipulation and machine learning modeling.
 
 
 ### 2. Creating visualizations
@@ -57,18 +57,18 @@ random forests mean absolute error: #
 random forests mean squared error: 
 
 ### Machine Learning Model 3. Linear Regression vs Neural Networks
-sample size = 1,249,400
+sample size = 87,825
 features = ['drop off location id', 'pick up location id', 'trip miles', 'trip time', 'congestion_surcharge', 'tips', 'month','day','hour', 'minute']
 target = 'base_passenger_fare'
-linear regression score: 0.767
-linear regression mean absolute error: $6.34
-linear regression mean squared error: $113.45
+linear regression score: 0.75
+linear regression mean absolute error: $6.39
+linear regression mean squared error: $119.83
 neural network trip mileage sensitivity analysis
 all distance trips
-neural network mean absolute error: $3.54
-neural network root mean squared error: $5.65
+neural network mean absolute error: $3.51
+neural network root mean squared error: $5.52
 trips less than 20 miles long
-neural network mean absolute error: $3.31
-neural network root mean squared error: $5.15
+neural network mean absolute error: $3.29
+neural network root mean squared error: $4.96
 
 ## Conclusion
