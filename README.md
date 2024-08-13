@@ -36,39 +36,62 @@ Step 3. Use aggregate of outcomes to make a decision based on input variables (b
 ### 3. Neural networks
 
 ## Results
+### Data Exploration
+* Dataset Dimensions: 1,670,353 rows and 19 columns.
+* Column Names: 'DOLocationID', 'PULocationID', 'hvfhs_license_num', 'request_datetime', 'trip_miles', 'trip_time', 'base_passenger_fare', 'tolls', 'bcf', 'sales_tax', 'congestion_surcharge', 'airport_fee', 'tips', 'driver_pay', 'date', 'PUBorough', 'PUZone', 'DOBorough', 'DOZone'.
+* Missing Values: 64 in PUBorough, 67,615 in DOBorough.
+* Uber Availability: Remained relatively stable each month with minor fluctuations.
+* Base Passenger Fare: Gradual increase each month; possibly influenced by factors other than Uber availability, such as demand or operating costs.
+* Trip Miles: Remained relatively stable throughout the year.
+* Trip Time: Slight increase over the year; longer trip durations may have contributed to the rise in base passenger fare.
+* Variability in Trip Time: Significant variability with a higher range and more outliers; distribution skewed to the right with most trips under 50 minutes.
+* Congestion Surcharge Distribution: Most common values are 0.0 and 2.75; higher surcharges are rare.
+* Tips Distribution: Most tips are between $0 and $10, with few exceeding $20.
+* Pairplot Insights: Trip distance and time significantly influence base passenger fare; strong positive correlations among variables.
+* Correlation Analysis:
+  * Strong Correlation: Base passenger fare and driver pay; trip miles and trip time.
+  * Moderate Correlation: Tolls, sales tax, and congestion surcharge with fares and driver pay.
+  * Weak Correlation: DOLocationID and PULocationID have minimal impact on other variables.
+  * Negative Values: Small percentages of negative values in driver_pay (0.0023%) and base_passenger_fare (0.0402%); should not be allowed in financial transactions.
+* Optimal Clusters: 4 clusters based on the Elbow Method.
+  * Cluster Insights:
+    * Cluster 0: Short, inexpensive trips.
+    * Cluster 1 & 2: Moderate trips with some overlap. Overlap between clusters indicated most trips are short with low fares.
+    * Cluster 3 captured rare, long, high-cost trips. Long, expensive trips with higher tolls and driver pay.
+    * Cluster Centroids: Distinct characteristics for each cluster in terms of trip miles, time, base fare, driver pay, and tolls.
 
-### Machine Learning Model 1. Linear Regression
-sample size = 
-features = ['trip_miles', 'trip_time', 'tolls', 'congestion_surcharge']
-target = 'base_passenger_fare'
-linear regression score: 0.79
-linear regression mean absolute error: 
-linear regression mean squared error: $113.83
+### Machine Learning Model 1. Linear Regression vs Random Forests
+* sample size = 167,049
+* features = ['drop off location id', 'pick up location id', 'trip miles', 'trip time','month','hour','weekday']
+* target = 'total_passenger_fare'
+* linear regression score: 0.81
+* linear regression mean absolute error: $6.51
+* linear regression mean squared error: $117.23
+* random forests score: 0.85
+* random forests mean absolute error: $5.25
+* random forests mean squared error: $91.66
 
-### Machine Learning Model 2. Linear Regression vs Random Forests
-sample size = 167,049
-features = ['drop off location id', 'pick up location id', 'trip miles', 'trip time','month','hour','weekday']
-target = 'total_passenger_fare'
-linear regression score: 0.81
-linear regression mean absolute error: $6.51
-linear regression mean squared error: $117.23
-random forests score: 0.85
-random forests mean absolute error: #
-random forests mean squared error: 
-
-### Machine Learning Model 3. Linear Regression vs Neural Networks
-sample size = 87,825
-features = ['drop off location id', 'pick up location id', 'trip miles', 'trip time', 'congestion_surcharge', 'tips', 'month','day','hour', 'minute']
-target = 'base_passenger_fare'
-linear regression score: 0.75
-linear regression mean absolute error: $6.39
-linear regression mean squared error: $119.83
-neural network trip mileage sensitivity analysis
+### Machine Learning Model 2. Linear Regression vs Neural Networks
+* sample size = 87,825
+* features = ['drop off location id', 'pick up location id', 'trip miles', 'trip time', 'congestion_surcharge', 'tips', 'month','day','hour', 'minute']
+* target = 'base_passenger_fare'
+* linear regression score: 0.75
+* linear regression mean absolute error: $6.39
+* linear regression mean squared error: $119.83
+* neural network trip mileage sensitivity analysis
 all distance trips
-neural network mean absolute error: $3.51
-neural network root mean squared error: $5.52
+* neural network mean absolute error: $3.51
+* neural network root mean squared error: $5.52
 trips less than 20 miles long
-neural network mean absolute error: $3.29
-neural network root mean squared error: $4.96
+* neural network mean absolute error: $3.29
+* neural network root mean squared error: $4.96
+
+### Machine Learning Model 3. Linear Regression 
+* sample size = 337,579
+* features = 
+* target = 'base_passenger_fare'
+* linear regression score: 0.79
+* linear regression mean absolute error: $5.52
+* linear regression mean squared error: $113.67
 
 ## Conclusion
