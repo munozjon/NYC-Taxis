@@ -160,7 +160,7 @@ function init() {
             .innerHTML += data;
         });    
     
-        
+    
     const histUrl = "http://127.0.0.1:5000/histogram";
     fetch(histUrl)
         .then(function(response) {
@@ -170,15 +170,41 @@ function init() {
             .innerHTML += data;
         });    
 
-        
-    const pltUrl = "http://127.0.0.1:5000/matplotlib";
-    fetch(pltUrl)
+    const boxUrl = "http://127.0.0.1:5000/boxplot";
+    fetch(boxUrl)
         .then(function(response) {
             return response.text();
         }).then(function(data) {
             document.getElementById("bar")
             .innerHTML += data;
-        });    
+        });
+
+    const tripHist = "http://127.0.0.1:5000/trip_time_histplot";
+    fetch(tripHist)
+        .then(function(response) {
+            return response.text();
+        }).then(function(data) {
+            document.getElementById("triphistogram")
+            .innerHTML += data;
+        });
+
+    const tipsHist = "http://127.0.0.1:5000/tips_histplot";
+    fetch(tipsHist)
+        .then(function(response) {
+            return response.text();
+        }).then(function(data) {
+            document.getElementById("tipshistogram")
+            .innerHTML += data;
+        });
+
+    const pairPlot = "http://127.0.0.1:5000/pairplot";
+    fetch(pairPlot)
+        .then(function(response) {
+            return response.text();
+        }).then(function(data) {
+            document.getElementById("pairplot")
+            .innerHTML += data;
+        });
 
     const rfUrl = "http://127.0.0.1:5000/rf_importance";
     fetch(rfUrl)
@@ -188,6 +214,7 @@ function init() {
             document.getElementById("rf_importance")
             .innerHTML += data;
         });  
+    
     };
 
 init();
