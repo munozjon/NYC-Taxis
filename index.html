@@ -23,7 +23,7 @@
             <div id="sidebar">
             <div class="card bg-light">
                 <h1>Ubers in NYC</h1>
-                <h3>Dataset from 2023</h3>
+                <h3>Dataset from 2023 via NYC OpenData</h3>
                 <div id="graphs">
                     <div class="row">
                         <div class="col-md-12">
@@ -67,19 +67,19 @@
     <!-- ML div -->
     <div class="row">
         <div class="card card-primary">
-            <h3> Linear Regression vs Random Forests Model with Feature Selection and Hypertuning</h3>
+            <h2> Linear Regression vs Random Forests Model with Feature Selection and Hypertuning</h2>
             <p> Sample size: 167,049<br/>
                 Features: <br/>
                 <ul> <li>drop off location ID</li> <li>pick up location ID</li> <li>trip miles</li><li>trip time</li><li>month</li><li>hour</li><li>day of the week</li> </ul>
                 Target: total fare cost<br/>
             </p>
-            <h4> Linear Regression Model Performance </h4>
+            <h3> Linear Regression Model Performance </h3>
             <p>
                 Accuracy score: 0.81 <br/>
                 Mean absolute error: $6.51 <br/>
                 Mean squared error: $117.23 <br/>
             </p>
-            <h4> Random Forests Model Performance </h4>
+            <h3> Random Forests Model Performance </h3>
             <p>
                 Feature selection: features with best importance were selected out of 21 features evaluated<br/>
                 Hypertuning: <br/>
@@ -96,19 +96,19 @@
                 <!-- <select id="selDataset" onchange="optionChanged(this.value)"></select> -->
         <div id = "rf_importance"></div>
 
-            <h3> Linear Regression vs Neural Network Model</h3>
+            <h2> Linear Regression vs Neural Network Model</h2>
             <p> Sample size: 87,825<br/>
                 Features: <br/>
                 <ul> <li>drop off location ID</li> <li>pick up location ID</li> <li>trip miles</li><li>trip time</li><li>congestion surcharge</li><li>tips</li><li>driver pay</li><li>month</li><li>day</li><li>hour</li><li>minute</li> </ul>
                 Target: base passenger fare<br/>
             </p>
-            <h4> Linear Regression Model Performance </h4>
+            <h3> Linear Regression Model Performance </h3>
             <p>
                 Accuracy score: 0.76 <br/>
                 Mean absolute error: $6.39 <br/>
                 Mean squared error: $119.83 <br/>
             </p>
-            <h4> Neural Network Model Performance </h4>
+            <h3> Neural Network Model Performance </h3>
             <p>
                 Feature selection: DOLocationID, PULocationID, trip miles, trip time, driver_pay, month, day, hour<br/>
                 Keras model with 3 layers: <br/>
