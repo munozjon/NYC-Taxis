@@ -17,7 +17,7 @@ import numpy as np
 import base64
 
 # Older df, used for testing
-df = pd.read_csv('static/data/uber_nyc_2023_1.csv')
+df = pd.read_csv('C:/Users/cmdur/OneDrive/Desktop/analytics_classwork/NYC-Taxis/static/data/uber_nyc_2023_1.csv')
 
 
 # Actual DFs to use
@@ -114,12 +114,16 @@ def create_matplotlib_plot():
 # Random Forests Matplotlib plot
 def create_rf_importance_plot():
     df_rf_feature_importance = pd.read_csv('C:/Users/cmdur/OneDrive/Desktop/analytics_classwork/NYC-Taxis/static/data/rf_features.csv')
-    df_rf_predictions = pd.read_csv('C:/Users/cmdur/OneDrive/Desktop/analytics_classwork/NYC-Taxis/static/data/rf_predictions.csv')
+    df_rf_predictions = pd.read_csv('C:/Users/cmdur/OneDrive/Desktop/analytics_classwork/NYC-Taxis/static/data/rf_predictions.csv').iloc[0:50,:]
     fig, (ax1,ax2) = plt.subplots(2,figsize=(20,10))
     ax1.bar(df_rf_feature_importance['Feature'], df_rf_feature_importance['Importance (%)'].astype('float'))
-    ax1.set(xlabel='Features', ylabel='Importance (%)', title='Feature Selection')
-  #  ax2.plot(df_rf_predictions['True Predictions'],df_rf_feature_importance['Random Forest Predictions Feature Selection'])
-    
+    ax1.set(xlabel='Features', ylabel='Importance (%)', title='Feature Selection')#, fontsize='large')#, fontweight='bold')
+    ax2.scatter(df_rf_predictions.index,df_rf_predictions['True Predictions'],marker='s')
+    ax2.scatter(df_rf_predictions.index,df_rf_predictions['Random Forest Predictions Feature Selection'],marker='o')
+    ax2.scatter(df_rf_predictions.index,df_rf_predictions['Linear Regression Predictions'],marker='D')
+    ax2.set(xlabel='Testing Samples', ylabel='Predictions ($)', title='Regressor predictions n=20')
+    ax2.legend(['True Predictions', 'Random Forest Predictions Feature Selection','Linear Regression Predictions'], fontsize="15", loc ="upper left")
+
     buf = BytesIO()
     fig.savefig(buf, format='png')
     buf.seek(0)
